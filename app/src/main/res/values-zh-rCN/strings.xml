@@ -1060,4 +1060,6 @@
     <string name="invalid_repo_name">仓库网址无效</string>
     <string name="delete_repo_confirmation">确定要删除仓库“%s”吗？</string>
     <string name="error_repo_exists">此仓库网址已存在！</string>
+    <string name="auto_play">自动翻页</string>
+    <string name="use_auto_play_progress">显示翻页进度条</string>
 </resources>

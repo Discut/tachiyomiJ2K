@@ -104,6 +104,7 @@ import eu.kanade.tachiyomi.ui.reader.viewer.pager.VerticalPagerViewer
 import eu.kanade.tachiyomi.ui.reader.viewer.webtoon.WebtoonViewer
 import eu.kanade.tachiyomi.ui.security.SecureActivityDelegate
 import eu.kanade.tachiyomi.ui.webview.WebViewActivity
+import eu.kanade.tachiyomi.util.AutoPlayTimer
 import eu.kanade.tachiyomi.util.chapter.ChapterUtil.Companion.preferredChapterName
 import eu.kanade.tachiyomi.util.storage.getUriCompat
 import eu.kanade.tachiyomi.util.system.ThemeUtil
@@ -228,6 +229,8 @@ class ReaderActivity : BaseActivity<ReaderActivityBinding>() {
     private var backPressedCallback: OnBackPressedCallback? = null
 
     var isScrollingThroughPagesOrChapters = false
+
+    private var autoPlayTimer: AutoPlayTimer? = null
     private var hingeGapSize = 0
         set(value) {
             field = value
@@ -1167,6 +1170,30 @@ class ReaderActivity : BaseActivity<ReaderActivityBinding>() {
                 }
                 binding.chaptersSheet.chaptersBottomSheet.sheetBehavior?.collapse()
             }
+
+            binding.toolbar.menu.findItem(R.id.action_auto_play)?.setOnMenuItemClickListener {
+                autoPlayTimer?.cancelTickAndProgress()
+
+                val dialog = AutoPlayDialogFragment()
+                dialog.setPositiveListener {
+                    autoPlayTimer?.cancelTickAndProgress()
+                    autoPlayTimer = AutoPlayTimer(
+                        2 * 60 * 60 * 1000,
+                        10,
+                        max = it,
+                        progressBar = binding.autoPlayProgressBar,
+                    ).apply {
+                        nextPageFun = {
+                            viewer?.moveToNext()
+                        }
+                    }
+                    autoPlayTimer?.startTickAndProgress()
+                    setMenuVisibility(false)
+                }
+                dialog.show(supportFragmentManager, "AutoPlayDialog")
+                true
+            }
+            autoPlayTimer?.cancelTickAndProgress()
         } else {
             if (preferences.fullscreen().get()) {
                 wic.hide(systemBars())

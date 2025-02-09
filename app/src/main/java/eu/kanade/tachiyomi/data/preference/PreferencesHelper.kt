@@ -484,4 +484,6 @@ class PreferencesHelper(val context: Context) {
     fun coverColors() = flowPrefs.getStringSet(Keys.coverColors, emptySet())
 
     fun useStaggeredGrid() = flowPrefs.getBoolean("use_staggered_grid", false)
+
+    fun useAutoPlayProgress() = flowPrefs.getBoolean("use_auto_play_progress", false)
 }
