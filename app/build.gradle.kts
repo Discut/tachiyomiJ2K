@@ -238,7 +238,8 @@ dependencies {
     implementation("info.android15.nucleus:nucleus-support-v7:$nucleusVersion")
 
     // Dependency injection
-    implementation("com.github.inorichi.injekt:injekt-core:65b0440")
+    //implementation("com.github.inorichi.injekt:injekt-core:91edab2317")
+    implementation("com.github.mihonapp:injekt:91edab2317")
 
     // Image library
     val coilVersion = "2.4.0"
@@ -253,8 +254,9 @@ dependencies {
     implementation("com.github.gpanther:java-nat-sort:natural-comparator-1.1")
 
     // UI
-    implementation("com.dmitrymalkovich.android:material-design-dimens:1.4")
-    implementation("br.com.simplepass:loading-button-android:2.2.0")
+    implementation("com.github.DmitryMalkovich:material-design-dimens:1.4")
+    // implementation("br.com.simplepass:loading-button-android:2.2.0")
+    implementation("com.github.leandroborgesferreira:loading-button-android:2.3.0")
     val fastAdapterVersion = "5.6.0"
     implementation("com.mikepenz:fastadapter:$fastAdapterVersion")
     implementation("com.mikepenz:fastadapter-extensions-binding:$fastAdapterVersion")
@@ -266,7 +268,7 @@ dependencies {
 
     implementation("com.github.chrisbanes:PhotoView:2.3.0")
     implementation("com.github.tachiyomiorg:DirectionalViewPager:1.0.0")
-    implementation("com.github.florent37:viewtooltip:1.2.2")
+    implementation("com.github.florent37:ViewTooltip:f79a8955ef")
     implementation("com.getkeepsafe.taptargetview:taptargetview:1.13.3")
 
     // Conductor
@@ -295,6 +297,9 @@ dependencies {
 
     // Android Chart
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
+    // number picker
+    implementation("com.chargemap.compose:numberpicker:1.0.3")
 }
 
 tasks {
