@@ -1,6 +1,7 @@
 package eu.kanade.tachiyomi.util
 
 import android.os.CountDownTimer
+import android.os.SystemClock
 import androidx.core.view.isVisible
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import eu.kanade.tachiyomi.data.preference.PreferencesHelper
@@ -18,8 +19,16 @@ class AutoPlayTimer(
     private var currentTime = 0
     var nextPageFun: (() -> Unit)? = null
     var doTick: DoTick = DoTick.PositivePlus
+    var elapsedRealtimeSave = -1L
     override fun onTick(millisUntilFinished: Long) {
-        currentTime += countDownInterval.toInt()
+        currentTime += if (elapsedRealtimeSave != -1L) {
+            // Use more accurate SystemClock.elapsedRealtime()
+            (SystemClock.elapsedRealtime() - elapsedRealtimeSave).toInt()
+        } else {
+            countDownInterval.toInt()
+        }
+        elapsedRealtimeSave = SystemClock.elapsedRealtime()
+
         doTick.doTick(currentTime, max, progressBar)
         if (currentTime >= max) {
             currentTime = 0

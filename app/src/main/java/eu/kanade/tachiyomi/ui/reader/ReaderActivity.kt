@@ -472,6 +472,7 @@ class ReaderActivity : BaseActivity<ReaderActivityBinding>() {
         bottomSheet = null
         snackbar?.dismiss()
         snackbar = null
+        autoPlayTimer?.cancelTickAndProgress()
     }
 
     /**
